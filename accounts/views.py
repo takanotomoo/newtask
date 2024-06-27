@@ -3,13 +3,10 @@ from django.views.generic import TemplateView, CreateView
 from django.contrib.auth.views import LoginView as BaseLoginView,  LogoutView as BaseLogoutView
 from django.urls import reverse_lazy
 from .forms import SignUpForm, LoginFrom
-
-
-
+from django.http import HttpResponse
 
 class IndexView(TemplateView):
     template_name = "index.html"
-
 
 class SignupView(CreateView):
     form_class = SignUpForm
@@ -25,11 +22,13 @@ class SignupView(CreateView):
         login(self.request, user)
         return response
 
-
 class LoginView(BaseLoginView):
     form_class = LoginFrom
     template_name = "accounts/login.html"
 
-# LogoutViewを追加
 class LogoutView(BaseLogoutView):
     success_url = reverse_lazy("accounts:index")
+
+# 新規追加
+def DailyView(request):
+    return HttpResponse('スニペットの登録')
